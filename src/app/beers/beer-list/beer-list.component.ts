@@ -1,4 +1,3 @@
-import { beerSelected } from './../store/beers.actions';
 import { Component, OnInit } from '@angular/core';
 import { select, Store } from '@ngrx/store';
 import { DrinksState } from '../store';
@@ -20,9 +19,5 @@ export class BeerListComponent implements OnInit {
   ngOnInit() {
     this.store.dispatch(fetchBeersListRequest());
     this.beers$ = this.store.pipe(select(getBeersSelector));
-  }
-
-  selectBeer(beer) {
-    this.store.dispatch(beerSelected(beer))
   }
 }

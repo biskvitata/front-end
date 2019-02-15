@@ -1,32 +1,42 @@
-import { DrinksState } from './../store';
-import { Store } from '@ngrx/store';
-import { Component, OnInit } from '@angular/core';
-import { getBeersSelector } from '../store/beers.selectors';
+import { BeersService } from './../beers.service';
+import { ActivatedRoute } from '@angular/router';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-beer-item',
   templateUrl: './beer-item.component.html',
   styleUrls: ['./beer-item.component.scss']
 })
-export class BeerItemComponent implements OnInit {
+export class BeerItemComponent implements OnInit, OnDestroy {
 
-  beer: any[];
+  beerId: number;
   isDifferenceShown: boolean;
+  beer = [];
+
+  private subscriptionList: Subscription[] = [];
 
   constructor(
-    private store: Store<DrinksState>
-    ) {
-      this.store.select(getBeersSelector).subscribe(currentBeer => {
-        this.beer = currentBeer;
-      })
-    }
+    private route: ActivatedRoute,
+    private beerService: BeersService
+  ) {}
 
   ngOnInit() {
-    console.log(this.beer)
+    this.beerId = +this.route.snapshot.paramMap.get('id');
+    this.subscriptionList.push(
+      this.beerService.getBeer(this.beerId).subscribe(res => {
+        this.beer = res;
+      })
+    )
   }
-
+  
   showDifference() {
     this.isDifferenceShown = true;
   }
 
+  ngOnDestroy() {
+    this.subscriptionList.forEach((subscription: Subscription) => {
+      subscription.unsubscribe();
+    });
+  }
 }

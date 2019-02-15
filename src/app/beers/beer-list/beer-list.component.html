@@ -1,5 +1,4 @@
 <div class="beer"
-    (click)="selectBeer(beer)"
     [routerLink]="['/beers', beer.id]"
     *ngFor="let beer of (beers$ | async)">
   <h4>
