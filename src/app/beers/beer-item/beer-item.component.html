@@ -1,0 +1,54 @@
+<div class="shell">
+  <div class="beer-item">
+    <header class="beer__header">
+      <h3 class="beer__title">
+          {{ beer.name }}
+      </h3> <!-- beer__title -->
+      
+      <button class="back"
+          routerLink="beers/">
+        Go back to beers page
+      </button> <!-- back -->
+    </header> <!-- beer__header -->
+
+    <div class="beer__content">
+      <div class="beer__image">
+          <img src="{{beer.image_url}}">
+      </div> <!-- beer__image -->
+
+      <div class="beer__description">
+        <span>
+          Description of the beer : {{ beer.description }}
+        </span>
+
+        <span>
+          First brewed date : {{ beer.first_brewed }}
+        </span>
+
+        <span>
+          Goes well with : {{ beer.food_pairing }}
+        </span>
+
+        <span>
+          Abv : {{ beer.abv }}, Ibu : {{ beer.ibu }}
+        </span>
+
+        <span>
+          Contributors : {{ beer.contributed_by }}
+        </span>
+
+        <div class="beer__gravitydifference">
+          <button class="beer__button"
+              (click)="showDifference()">
+            Show difference between gravities
+          </button>
+
+          <div
+              *ngIf="isDifferenceShown">
+            Gravity difference : {{ beer.target_og - beer.target_fg }}
+          </div>
+        </div> <!-- beer__gravitydifference -->
+      </div> <!-- beer__description -->
+    </div> <!-- beer__content -->
+  </div> <!-- beer-item -->
+</div> <!-- shell -->

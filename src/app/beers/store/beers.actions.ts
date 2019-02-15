@@ -6,6 +6,7 @@ import { GenericAction } from '../../models';
 export const FETCH_BEERS_REQUEST = '[Beers] fetch list of beers request';
 export const FETCH_BEERS_RESPONSE = '[Beers] fetch list of beers response';
 export const FETCH_BEERS_FAILED = '[Beers] fetch list of beers failed';
+export const BEER_SELECTED = '[Beer] selected';
 
 
 export const fetchBeersListRequest = (): Action => {
@@ -18,4 +19,8 @@ export const fetchBeersListResponse = (beers): Action => {
 
 export const fetchBeersListFailed = (): Action => {
   return new GenericAction(FETCH_BEERS_FAILED);
+};
+
+export const beerSelected = (beer): Action => {
+  return new GenericAction(FETCH_BEERS_RESPONSE, beer);
 };
